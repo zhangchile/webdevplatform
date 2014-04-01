@@ -1,6 +1,7 @@
 <?php
 
 require_once (ROOT . DS . 'config' . DS .'config.php');
+require_once (ROOT . DS . 'core' . DS .'check.php');
 
 function callHook()
 {
@@ -25,6 +26,7 @@ function callHook()
 
 	if(file_exists(ROOT.DS.'WebApp'.DS.$app.DS.$page)) {
 		include(ROOT.DS.'WebApp'.DS.$app.DS.$page);
+		include (ROOT.DS.'core'.DS.'Ajax.php');
 	} else {
 		//show file not find
 		echo "<h1>No such file or dirrectory</h1>";
@@ -32,3 +34,6 @@ function callHook()
 }
 
 callHook();
+print_files(ROOT.DS.'WebApp');
+//log_file(ROOT.DS.'WebApp', 'default');
+is_change('default');
