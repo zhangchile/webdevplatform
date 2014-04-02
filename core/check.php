@@ -59,10 +59,12 @@ function is_change($app)
     $content = fgets($handle);
     fclose($handle);
     // var_dump($file_info,$content);
-    if(!strcmp($file_info, $content)) {
-        echo 'no change';//
+    if(!strcmp($file_info, $content)) {//比较文件信息
+        // echo 'no change';
+        return false;
     } else {
-        echo 'had changed';
-        // log_file($dir, $app);
+        // echo 'had changed';
+        log_file($dir, $app);
+        return true;
     }
 }

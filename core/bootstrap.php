@@ -3,14 +3,14 @@
 require_once (ROOT . DS . 'config' . DS .'config.php');
 require_once (ROOT . DS . 'core' . DS .'check.php');
 
+
 function callHook()
 {
 	global $url;
-	
 	$urlArray = array();
 	$urlArray = explode("/", $url);
-	echo '<br/>';
-	var_dump($urlArray);
+	// echo '<br/>';
+	// var_dump($urlArray);
 	if($urlArray[0] != '') {
 		$app = $urlArray[0];
 	 } else {
@@ -23,17 +23,23 @@ function callHook()
 		$page = "index.html";//默认为index.html
 	 }
 	array_shift($urlArray);
+	return array('app'=>$app,'page'=>$page);
+}
 
+function rander()
+{
+	$callHook = callHook();
+	$app = $callHook['app'];
+	$page = $callHook['page'];
 	if(file_exists(ROOT.DS.'WebApp'.DS.$app.DS.$page)) {
 		include(ROOT.DS.'WebApp'.DS.$app.DS.$page);
-		include (ROOT.DS.'core'.DS.'Ajax.php');
+		include (ROOT.DS.'core'.DS.'Ajax.php');//加入ajax请求
 	} else {
 		//show file not find
 		echo "<h1>No such file or dirrectory</h1>";
 	}
 }
 
-callHook();
-print_files(ROOT.DS.'WebApp');
+// print_files(ROOT.DS.'WebApp');
 //log_file(ROOT.DS.'WebApp', 'default');
-is_change('default');
+// is_change('default');
