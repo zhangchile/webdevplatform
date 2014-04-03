@@ -33,7 +33,7 @@ function rander()
 	$page = $callHook['page'];
 	if(file_exists(ROOT.DS.'WebApp'.DS.$app.DS.$page)) {
 		include(ROOT.DS.'WebApp'.DS.$app.DS.$page);
-		include (ROOT.DS.'core'.DS.'Ajax.php');//加入ajax请求
+		include (ROOT.DS.'core'.DS.'Ajax2.php');//加入ajax请求
 	} else {
 		//show file not find
 		echo "<h1>No such file or dirrectory</h1>";
