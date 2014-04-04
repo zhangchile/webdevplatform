@@ -4,9 +4,18 @@ require_once (ROOT . DS . 'config' . DS .'config.php');
 require_once (ROOT . DS . 'core' . DS .'check.php');
 
 
+
 function callHook()
 {
-	global $url;
+	global $url;//全局url
+	global $app;
+	global $page;
+
+	$uri = $_SERVER['REQUEST_URI'];
+	$start = stripos($uri, 'index.php');
+	if($start > 0)
+		$url = substr($uri, $start + 10);
+
 	$urlArray = array();
 	$urlArray = explode("/", $url);
 	// echo '<br/>';
@@ -14,7 +23,7 @@ function callHook()
 	if($urlArray[0] != '') {
 		$app = $urlArray[0];
 	 } else {
-		$app = "default";//默认为default
+		// $app = "default";//默认为default
 	 }
 	array_shift($urlArray);//将数组开头的单元移出数组
 	if(count($urlArray) != 0) {

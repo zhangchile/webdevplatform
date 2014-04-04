@@ -16,4 +16,4 @@ RewriteEngine On
 #RewriteRule ^(.*)$ - [E=BASE:%1]
 #RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
 
-RewriteRule (/?[^\/]*\/css\/)(.*\.(jpg|jpeg|png|gif|tif|js|css))$ WebApp$1$2
+RewriteRule (index.php)(.*.(jpg|jpeg|png|gif|tif|js|css))$ WebApp/$2

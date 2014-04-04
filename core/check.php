@@ -48,6 +48,12 @@ function log_file($dir, $app)
 function is_change($app)
 {
     $dir = ROOT.DS.'WebApp'.DS.$app;
+
+    if(!file_exists('data/'.$app.'.json')) {//文件不存在
+        log_file($dir, $app);//创建一个新的记录
+        return true;
+    }
+
     $files = get_filenamesbydir($dir);
     $info = array();
     foreach ($files as $value) {

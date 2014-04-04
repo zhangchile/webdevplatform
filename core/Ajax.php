@@ -28,7 +28,8 @@ var autoReload = function() {
         createRequest();
         var url = <?php $request_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; 
                     echo '"'.substr($request_url, 0, stripos($request_url,'index.php')).'reload.php"';?>;
-        request.open('GET',url + '?time=' + getT(),true);
+        var app = "<?php global $app; echo $app;?>";
+        request.open('GET',url + '?time=' + getT() + '&app=' + app,true);
         request.onreadystatechange = processRequest;
         request.send(null);
         setTimeout(abortRequest, timeOut);//超时重试
@@ -38,6 +39,7 @@ var autoReload = function() {
         if(request.readyState == 4 && request.status == 200) {
             //请求结果已经返回
             var msg = request.responseText;
+            console.log(msg);
             (typeof msg !== 'object') ? jsonObj = JSON.parse(msg) : jsonObj = msg;
             if (1 === jsonObj.status){
                 console.log("文件已经改动，可以刷新页面！");
