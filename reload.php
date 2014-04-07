@@ -13,7 +13,7 @@ if($_GET['time'] && $_GET['app']) {
 set_time_limit(0);//设定执行时间，0为无限
 $startTime = time();//当前时间戳
 $flag = false;
-while(time() - $startTime < 60) {//60秒内检查文件是否改动
+while(time() - $startTime < 50) {//60秒内检查文件是否改动
     if(is_change($app)) {
         $flag = true;
         break;

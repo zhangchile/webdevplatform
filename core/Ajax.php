@@ -2,7 +2,7 @@
 var autoReload = function() {
     var request = null;
     var timeOut = 60*1000;//60s超时
-
+    var timeID;
     function getT(){
         var D = new Date();
         var t = String(D.getTime());
@@ -32,14 +32,14 @@ var autoReload = function() {
         request.open('GET',url + '?time=' + getT() + '&app=' + app,true);
         request.onreadystatechange = processRequest;
         request.send(null);
-        setTimeout(abortRequest, timeOut);//超时重试
+        timeID = setTimeout(abortRequest, timeOut);//超时重试
     }
 
     function processRequest() {
         if(request.readyState == 4 && request.status == 200) {
             //请求结果已经返回
             var msg = request.responseText;
-            console.log(msg);
+            // console.log(msg);
             (typeof msg !== 'object') ? jsonObj = JSON.parse(msg) : jsonObj = msg;
             if (1 === jsonObj.status){
                 console.log("文件已经改动，可以刷新页面！");
@@ -47,6 +47,7 @@ var autoReload = function() {
             } else {
                 console.log("没有任何改动！再次建立查询...");
                 console.log("msg=" + jsonObj.status + ",intime = "+ jsonObj.intime+"s");
+                clearTimeout(timeID);//清除计时器
                 sendRequest();
             }
         }
